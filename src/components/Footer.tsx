@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { ScanLine, Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
+import ScannerLogo from '@/components/ScannerLogo';
 
 export default function Footer() {
   const sections = [
@@ -40,13 +41,16 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="sm:col-span-2 md:col-span-3 lg:col-span-2">
-            <Link to="/" className="flex items-center gap-2 mb-4">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-600">
-                <ScanLine className="h-5 w-5 text-white" />
+            <Link to="/" className="flex items-center gap-2.5 mb-4 group">
+              <ScannerLogo isTransparent={true} size="md" />
+              <div className="flex flex-col">
+                <span className="font-display text-lg font-bold leading-tight">
+                  Property<span className="text-teal-400">Scanner</span>
+                </span>
+                <span className="text-[10px] font-semibold tracking-wider uppercase text-white/50">
+                  Live Property Radar
+                </span>
               </div>
-              <span className="font-display text-lg font-bold">
-                Property<span className="text-teal-400">Scanner</span>
-              </span>
             </Link>
             <p className="text-sm text-white/60 leading-relaxed max-w-sm mb-4">
               Search and compare properties across multiple platforms, all in one place. Making property search smarter, not harder.

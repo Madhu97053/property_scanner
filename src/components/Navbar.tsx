@@ -1,11 +1,12 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import {
-  Menu, X, Heart, GitCompare, ScanLine, LogIn, Home,
+  Menu, X, Heart, GitCompare, LogIn, Home,
   Search as SearchIcon, LogOut, ChevronDown
 } from 'lucide-react';
 import { useSavedProperties, useCompareProperties } from '@/hooks/useStorage';
 import { useAuth } from '@/context/AuthContext';
+import ScannerLogo from '@/components/ScannerLogo';
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -75,13 +76,16 @@ export default function Navbar() {
         <nav className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-2 shrink-0">
-              <div className={`flex h-9 w-9 items-center justify-center rounded-lg ${isTransparent ? 'bg-white/20' : 'bg-blue-600'}`}>
-                <ScanLine className="h-5 w-5 text-white" />
+            <Link to="/" className="flex items-center gap-2.5 shrink-0 group">
+              <ScannerLogo isTransparent={isTransparent} size="md" />
+              <div className="flex flex-col">
+                <span className={`font-display text-base sm:text-lg font-bold tracking-tight leading-tight ${isTransparent ? 'text-white' : 'text-navy-600'}`}>
+                  Property<span className={isTransparent ? 'text-teal-300' : 'text-teal-600'}>Scanner</span>
+                </span>
+                <span className={`text-[9.5px] font-semibold tracking-wider uppercase hidden sm:block ${isTransparent ? 'text-white/70' : 'text-gray-400'}`}>
+                  Live Property Radar
+                </span>
               </div>
-              <span className={`font-display text-base sm:text-lg font-bold tracking-tight ${isTransparent ? 'text-white' : 'text-navy-600'}`}>
-                Property<span className={isTransparent ? 'text-teal-300' : 'text-teal-600'}>Scanner</span>
-              </span>
             </Link>
 
             {/* Desktop nav (Tablet & Laptop & Desktop) */}
