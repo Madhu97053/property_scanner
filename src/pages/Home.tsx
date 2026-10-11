@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import {
-  Search, GitCompare, ExternalLink, Building2, Home as HomeIcon,
-  MapPin, TreePalm, Store, TrendingUp, ArrowRight, Sparkles,
-  ShieldCheck, Clock, BadgeCheck, IndianRupee
+  Search, GitCompareArrows, ExternalLink, Building2, Home as HomeIcon,
+  MapPin, Castle, LandPlot, Briefcase, Layers, ArrowRight, Sparkles,
+  ShieldCheck, Clock, BadgeCheck, IndianRupee, TrendingUp
 } from 'lucide-react';
 import SearchForm from '@/components/SearchForm';
 import PropertyCard from '@/components/PropertyCard';
@@ -13,10 +13,10 @@ const heroImage = 'https://images.pexels.com/photos/24805054/pexels-photo-248050
 
 const propertyTypeIcons: Record<string, typeof Building2> = {
   Apartment: Building2,
-  Villa: TreePalm,
+  Villa: Castle,
   'Independent House': HomeIcon,
-  Plot: MapPin,
-  Commercial: Store,
+  Plot: LandPlot,
+  Commercial: Briefcase,
 };
 
 const cityImages: Record<string, string> = {
@@ -34,7 +34,7 @@ const steps = [
     description: 'Enter your preferences — city, budget, BHK, and property type — to find matching listings.',
   },
   {
-    icon: GitCompare,
+    icon: GitCompareArrows,
     title: 'Compare',
     description: 'See offers from multiple property platforms side by side, so you never miss a better deal.',
   },
@@ -48,7 +48,7 @@ const steps = [
 const stats = [
   { icon: Building2, label: 'Properties Listed', value: '30+' },
   { icon: MapPin, label: 'Cities Covered', value: '5' },
-  { icon: Store, label: 'Platforms Compared', value: '4' },
+  { icon: Layers, label: 'Platforms Compared', value: '4' },
   { icon: BadgeCheck, label: 'Verified Listings', value: '100%' },
 ];
 

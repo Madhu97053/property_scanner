@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Heart, GitCompare } from 'lucide-react';
+import { Heart, GitCompareArrows } from 'lucide-react';
 import { properties } from '@/data/properties';
 import { useSavedProperties } from '@/hooks/useStorage';
 import PropertyCard from '@/components/PropertyCard';
@@ -43,7 +43,7 @@ export default function Saved() {
           {/* Bulk actions banner */}
           <div className="mb-5 flex flex-col sm:flex-row items-start sm:items-center gap-3 rounded-2xl bg-blue-50 border border-blue-100/60 p-3.5 sm:p-4">
             <div className="flex items-center gap-2.5 flex-1">
-              <GitCompare className="h-5 w-5 text-blue-600 shrink-0" />
+              <GitCompareArrows className="h-5 w-5 text-blue-600 shrink-0" />
               <p className="text-xs sm:text-sm text-blue-700">
                 Add saved properties to your compare list to see them side by side.
               </p>

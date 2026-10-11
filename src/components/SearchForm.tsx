@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, Building2, MapPin, Home, IndianRupee, BedDouble } from 'lucide-react';
+import { Search, Building2, MapPin, GitCompareArrows, IndianRupee, BedDouble } from 'lucide-react';
 import type { ListingType, PropertyType, BHKType } from '@/types';
 import { CITIES, PROPERTY_TYPES, BHK_OPTIONS } from '@/types';
 
@@ -177,7 +177,7 @@ export default function SearchForm({
       </button>
 
       <p className="mt-3 flex items-center justify-center gap-1.5 text-[11px] sm:text-xs text-gray-400">
-        <Home className="h-3 w-3" /> Compare across multiple property platforms
+        <GitCompareArrows className="h-3.5 w-3.5 text-blue-500" /> Compare across multiple property platforms
       </p>
     </div>
   );

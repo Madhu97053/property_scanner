@@ -1,3 +1,3 @@
-export default function DemoBadge(_props: { className?: string }) {
+export default function DemoBadge() {
   return null;
 }

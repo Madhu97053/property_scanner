@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import {
-  Menu, X, Heart, GitCompare, LogIn, Home,
+  Menu, X, Heart, GitCompareArrows, LogIn, Home,
   Search as SearchIcon, LogOut, ChevronDown
 } from 'lucide-react';
 import { useSavedProperties, useCompareProperties } from '@/hooks/useStorage';
@@ -50,7 +50,7 @@ export default function Navbar() {
   const navLinks = [
     { label: 'Home', path: '/', icon: Home },
     { label: 'Search', path: '/search', icon: SearchIcon },
-    { label: 'Compare', path: '/compare', icon: GitCompare },
+    { label: 'Compare', path: '/compare', icon: GitCompareArrows },
     { label: 'Saved', path: '/saved', icon: Heart },
   ];
 
@@ -108,7 +108,7 @@ export default function Navbar() {
                 className={`relative flex h-9 w-9 items-center justify-center rounded-lg transition-colors ${isTransparent ? 'hover:bg-white/10 text-white' : 'hover:bg-gray-100 text-gray-600'}`}
                 aria-label="Compare properties"
               >
-                <GitCompare className="h-5 w-5" />
+                <GitCompareArrows className="h-5 w-5" />
                 {compareIds.length > 0 && (
                   <span className="absolute -top-1 -right-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-blue-600 px-1 text-[10px] font-bold text-white">
                     {compareIds.length}
@@ -151,7 +151,7 @@ export default function Navbar() {
                         to="/compare"
                         className="flex items-center justify-between px-4 py-2.5 text-xs font-medium text-gray-700 hover:bg-gray-50 transition-colors"
                       >
-                        <span className="flex items-center gap-2"><GitCompare className="h-3.5 w-3.5 text-blue-600" /> Compared Properties</span>
+                        <span className="flex items-center gap-2"><GitCompareArrows className="h-3.5 w-3.5 text-blue-600" /> Compared Properties</span>
                         <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-semibold">{compareIds.length}</span>
                       </Link>
                       <div className="border-t border-gray-100 mt-1 pt-1">

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Heart, GitCompare, Bed, Bath, Maximize, MapPin, CheckCircle2, ExternalLink } from 'lucide-react';
+import { Heart, GitCompareArrows, BedDouble, Bath, Maximize2, MapPin, CheckCircle2, ExternalLink } from 'lucide-react';
 import type { Property } from '@/types';
 import { formatPrice, formatArea, formatPricePerSqft, getListingLabel } from '@/utils/format';
 import { useSavedProperties, useCompareProperties } from '@/hooks/useStorage';
@@ -78,7 +78,7 @@ export default function PropertyCard({ property, compact = false }: PropertyCard
         <div className="mt-2.5 sm:mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs sm:text-sm text-gray-600">
           {property.bedrooms > 0 && (
             <span className="flex items-center gap-1">
-              <Bed className="h-3.5 w-3.5 text-gray-400 shrink-0" /> {property.bedrooms} BHK
+              <BedDouble className="h-3.5 w-3.5 text-gray-400 shrink-0" /> {property.bedrooms} BHK
             </span>
           )}
           {property.bathrooms > 0 && (
@@ -87,7 +87,7 @@ export default function PropertyCard({ property, compact = false }: PropertyCard
             </span>
           )}
           <span className="flex items-center gap-1">
-            <Maximize className="h-3.5 w-3.5 text-gray-400 shrink-0" /> {formatArea(property.area)}
+            <Maximize2 className="h-3.5 w-3.5 text-gray-400 shrink-0" /> {formatArea(property.area)}
           </span>
         </div>
 
@@ -106,7 +106,7 @@ export default function PropertyCard({ property, compact = false }: PropertyCard
                     : 'bg-gray-100 text-gray-700 hover:bg-blue-50 hover:text-blue-600'
               }`}
             >
-              <GitCompare className="h-3.5 w-3.5 shrink-0" />
+              <GitCompareArrows className="h-3.5 w-3.5 shrink-0" />
               <span>{comparing ? 'Added' : 'Compare'}</span>
             </button>
             <Link

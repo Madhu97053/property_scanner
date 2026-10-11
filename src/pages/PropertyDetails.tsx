@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
-  ArrowLeft, Heart, GitCompare, MapPin, Bed, Bath, Maximize,
+  ArrowLeft, Heart, GitCompareArrows, MapPin, BedDouble, Bath, Maximize2,
   CheckCircle2, ChevronLeft, ChevronRight, Home, Car, Sofa,
-  Calendar, Building, Zap, Shield, ExternalLink, Share2
+  Calendar, Building2, ExternalLink, Share2, Clock, Sun,
+  Waves, Dumbbell, Coffee, ShieldCheck, BatteryCharging, Gamepad2,
+  ArrowUpDown, Camera, Fence, Footprints, Trees, Trophy,
+  Theater, CloudRain, SunMedium, Flame
 } from 'lucide-react';
 import { getPropertyById, getRelatedProperties } from '@/data/properties';
 import { formatPrice, formatArea, formatPricePerSqft, getListingLabel } from '@/utils/format';
@@ -12,16 +15,24 @@ import PropertyCard from '@/components/PropertyCard';
 import EmptyState from '@/components/EmptyState';
 
 const amenityIcons: Record<string, typeof Home> = {
-  'Swimming Pool': Home,
-  'Gym': Zap,
-  'Clubhouse': Building,
-  '24/7 Security': Shield,
-  'Power Backup': Zap,
-  "Children's Play Area": Home,
+  'Swimming Pool': Waves,
+  'Gym': Dumbbell,
+  'Clubhouse': Coffee,
+  '24/7 Security': ShieldCheck,
+  'Power Backup': BatteryCharging,
+  "Children's Play Area": Gamepad2,
   'Covered Parking': Car,
-  'Lift': Building,
-  'CCTV Surveillance': Shield,
-  'Gated Community': Shield,
+  'Lift': ArrowUpDown,
+  'CCTV Surveillance': Camera,
+  'Gated Community': Fence,
+  'Jogging Track': Footprints,
+  'Landscaped Gardens': Trees,
+  'Sports Court': Trophy,
+  'Yoga Deck': Sun,
+  'Amphitheatre': Theater,
+  'Rainwater Harvesting': CloudRain,
+  'Solar Lighting': SunMedium,
+  'Fire Safety': Flame,
 };
 
 export default function PropertyDetails() {
@@ -56,14 +67,14 @@ export default function PropertyDetails() {
   const bestOffer = sortedOffers[0];
 
   const overviewItems = [
-    { icon: Bed, label: 'Bedrooms', value: property.bedrooms > 0 ? `${property.bedrooms} BHK` : 'N/A' },
+    { icon: BedDouble, label: 'Bedrooms', value: property.bedrooms > 0 ? `${property.bedrooms} BHK` : 'N/A' },
     { icon: Bath, label: 'Bathrooms', value: property.bathrooms > 0 ? `${property.bathrooms}` : 'N/A' },
-    { icon: Maximize, label: 'Area', value: formatArea(property.area) },
-    { icon: Building, label: 'Type', value: property.type },
+    { icon: Maximize2, label: 'Area', value: formatArea(property.area) },
+    { icon: Building2, label: 'Type', value: property.type },
     { icon: Sofa, label: 'Furnishing', value: property.furnishing },
     { icon: Calendar, label: 'Possession', value: property.possession },
-    { icon: Shield, label: 'Age', value: property.age },
-    { icon: Car, label: 'Balconies', value: property.balconies > 0 ? `${property.balconies}` : 'None' },
+    { icon: Clock, label: 'Age', value: property.age },
+    { icon: Sun, label: 'Balconies', value: property.balconies > 0 ? `${property.balconies}` : 'None' },
   ];
 
   return (
@@ -106,7 +117,7 @@ export default function PropertyDetails() {
               }`}
               aria-label={comparing ? 'Remove from compare' : 'Add to compare'}
             >
-              <GitCompare className="h-3.5 sm:h-4 w-3.5 sm:w-4" /> <span className="hidden sm:inline">{comparing ? 'Added' : 'Compare'}</span>
+              <GitCompareArrows className="h-3.5 sm:h-4 w-3.5 sm:w-4" /> <span className="hidden sm:inline">{comparing ? 'Added' : 'Compare'}</span>
             </button>
           </div>
         </div>
@@ -315,7 +326,7 @@ export default function PropertyDetails() {
                       : 'border border-gray-200 text-gray-700 hover:bg-blue-50 hover:text-blue-600'
                 }`}
               >
-                <GitCompare className="inline h-4 w-4 mr-1.5" />
+                <GitCompareArrows className="inline h-4 w-4 mr-1.5" />
                 {comparing ? 'In Compare List' : compareFull ? 'Compare List Full' : 'Add to Compare'}
               </button>
             </div>

@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { GitCompare, X } from 'lucide-react';
+import { GitCompareArrows, X } from 'lucide-react';
 import { useCompareProperties } from '@/hooks/useStorage';
 import { properties } from '@/data/properties';
 import { formatPrice } from '@/utils/format';
@@ -20,14 +20,14 @@ export default function CompareBar() {
         <div className="flex items-center gap-2 sm:gap-3">
           {/* Label / Counter */}
           <div className="hidden sm:flex items-center gap-2 shrink-0">
-            <GitCompare className="h-5 w-5 text-blue-600" />
+            <GitCompareArrows className="h-5 w-5 text-blue-600" />
             <span className="text-sm font-semibold text-gray-700">
               Compare ({compareIds.length}/5)
             </span>
           </div>
 
           <div className="sm:hidden flex items-center justify-center h-8 w-8 rounded-lg bg-blue-50 text-blue-600 shrink-0">
-            <GitCompare className="h-4 w-4" />
+            <GitCompareArrows className="h-4 w-4" />
             <span className="sr-only">Compare</span>
           </div>
 

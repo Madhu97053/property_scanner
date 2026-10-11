@@ -1,5 +1,8 @@
 import { Link } from 'react-router-dom';
-import { X, Check, GitCompare, ExternalLink, Bed, Bath, Maximize, MapPin, Building, Sofa, Calendar, Shield, CheckCircle2 } from 'lucide-react';
+import {
+  X, Check, GitCompareArrows, ExternalLink, BedDouble, Bath, Maximize2,
+  MapPin, Building2, Sofa, Calendar, Clock, Tag, IndianRupee, Coins, CheckCircle2
+} from 'lucide-react';
 import { properties } from '@/data/properties';
 import { formatPrice, formatArea, formatPricePerSqft, getListingLabel } from '@/utils/format';
 import { useCompareProperties } from '@/hooks/useStorage';
@@ -45,20 +48,20 @@ export default function Compare() {
   const lowestPrice = Math.min(...compareProps.map((p) => p.price));
   const largestArea = Math.max(...compareProps.map((p) => p.area));
 
-  const rows: { label: string; key: string; render: (p: typeof properties[0]) => React.ReactNode; icon: typeof Bed }[] = [
-    { label: 'Price', key: 'price', icon: Building, render: (p) => (
+  const rows: { label: string; key: string; render: (p: typeof properties[0]) => React.ReactNode; icon: typeof BedDouble }[] = [
+    { label: 'Price', key: 'price', icon: IndianRupee, render: (p) => (
       <span className={`font-bold ${p.price === lowestPrice ? 'text-teal-600' : 'text-gray-700'}`}>
         {formatPrice(p.price)}
         {p.price === lowestPrice && <span className="block text-[10px] font-bold text-teal-500 uppercase">Lowest</span>}
       </span>
     )},
-    { label: 'Price / sqft', key: 'persqft', icon: Building, render: (p) => formatPricePerSqft(p.price, p.area) },
+    { label: 'Price / sqft', key: 'persqft', icon: Coins, render: (p) => formatPricePerSqft(p.price, p.area) },
     { label: 'Location', key: 'locality', icon: MapPin, render: (p) => `${p.locality}, ${p.city}` },
-    { label: 'Type', key: 'type', icon: Building, render: (p) => p.type },
-    { label: 'BHK', key: 'bhk', icon: Bed, render: (p) => p.bhk === 'Plot' ? 'N/A' : `${p.bhk} BHK` },
-    { label: 'Bedrooms', key: 'bedrooms', icon: Bed, render: (p) => p.bedrooms > 0 ? `${p.bedrooms}` : 'N/A' },
+    { label: 'Type', key: 'type', icon: Building2, render: (p) => p.type },
+    { label: 'BHK', key: 'bhk', icon: BedDouble, render: (p) => p.bhk === 'Plot' ? 'N/A' : `${p.bhk} BHK` },
+    { label: 'Bedrooms', key: 'bedrooms', icon: BedDouble, render: (p) => p.bedrooms > 0 ? `${p.bedrooms}` : 'N/A' },
     { label: 'Bathrooms', key: 'bathrooms', icon: Bath, render: (p) => p.bathrooms > 0 ? `${p.bathrooms}` : 'N/A' },
-    { label: 'Area', key: 'area', icon: Maximize, render: (p) => (
+    { label: 'Area', key: 'area', icon: Maximize2, render: (p) => (
       <span className={p.area === largestArea ? 'text-teal-600 font-semibold' : ''}>
         {formatArea(p.area)}
         {p.area === largestArea && <span className="block text-[10px] font-bold text-teal-500 uppercase">Largest</span>}
@@ -66,8 +69,8 @@ export default function Compare() {
     )},
     { label: 'Furnishing', key: 'furnishing', icon: Sofa, render: (p) => p.furnishing },
     { label: 'Possession', key: 'possession', icon: Calendar, render: (p) => p.possession },
-    { label: 'Age', key: 'age', icon: Shield, render: (p) => p.age },
-    { label: 'Listing', key: 'listingType', icon: Building, render: (p) => getListingLabel(p.listingType) },
+    { label: 'Age', key: 'age', icon: Clock, render: (p) => p.age },
+    { label: 'Listing', key: 'listingType', icon: Tag, render: (p) => getListingLabel(p.listingType) },
     { label: 'Verified', key: 'verified', icon: CheckCircle2, render: (p) => p.verified ? <Check className="h-4 w-4 text-green-600" /> : <X className="h-4 w-4 text-gray-300" /> },
   ];
 
@@ -77,7 +80,7 @@ export default function Compare() {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-5 sm:mb-6">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-md shadow-blue-600/30">
-            <GitCompare className="h-5 w-5 sm:h-6 sm:w-6" />
+            <GitCompareArrows className="h-5 w-5 sm:h-6 sm:w-6" />
           </div>
           <div>
             <h1 className="font-display text-xl sm:text-2xl font-bold text-navy-600">Compare Properties</h1>
@@ -194,7 +197,7 @@ export default function Compare() {
             <tr>
               <td className="sticky left-0 z-20 bg-white p-3 sm:p-4 text-left align-top shadow-[2px_0_4px_-1px_rgba(0,0,0,0.06)] border-r border-gray-100">
                 <div className="flex items-center gap-2">
-                  <Building className="h-4 w-4 text-gray-400 shrink-0" />
+                  <Building2 className="h-4 w-4 text-gray-400 shrink-0" />
                   <span className="text-xs sm:text-sm font-medium text-gray-600">Best Provider Offer</span>
                 </div>
               </td>
