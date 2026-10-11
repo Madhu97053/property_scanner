@@ -258,7 +258,7 @@ export default function LoginModal({
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Madhuteja"
+                  placeholder="e.g. John"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="input-field pl-10"
