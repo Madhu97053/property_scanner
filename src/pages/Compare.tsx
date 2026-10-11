@@ -4,7 +4,7 @@ import {
   MapPin, Building2, Sofa, Calendar, Clock, Tag, IndianRupee, Coins, CheckCircle2
 } from 'lucide-react';
 import { properties } from '@/data/properties';
-import { formatPrice, formatArea, formatPricePerSqft, getListingLabel } from '@/utils/format';
+import { formatPrice, formatArea, formatPricePerSqft, getListingLabel, getProviderLogo } from '@/utils/format';
 import { useCompareProperties } from '@/hooks/useStorage';
 import EmptyState from '@/components/EmptyState';
 
@@ -203,10 +203,20 @@ export default function Compare() {
               </td>
               {compareProps.map((p) => {
                 const best = [...p.offers].sort((a, b) => a.price - b.price)[0];
+                const logoSrc = best.logo || getProviderLogo(best.provider);
                 return (
                   <td key={p.id + 'offer'} className="p-2.5 sm:p-3 align-top text-center">
-                    <div className="rounded-xl bg-teal-50 border border-teal-200 p-2">
-                      <p className="text-[11px] text-gray-500">{best.provider}</p>
+                    <div className="rounded-xl bg-teal-50 border border-teal-200 p-2 flex flex-col items-center gap-1">
+                      <div className="flex items-center justify-center gap-1.5">
+                        {logoSrc && (
+                          <img
+                            src={logoSrc}
+                            alt={best.provider}
+                            className="h-4 w-4 rounded-sm object-contain bg-white shrink-0"
+                          />
+                        )}
+                        <p className="text-[11px] font-semibold text-gray-700">{best.provider}</p>
+                      </div>
                       <p className="text-xs sm:text-sm font-bold text-teal-700">{formatPrice(best.price)}</p>
                     </div>
                   </td>

@@ -3,10 +3,10 @@ import type { Property, ProviderOffer } from '@/types';
 const baseOffers = (price: number): ProviderOffer[] => {
   const variance = (pct: number) => Math.round((price * (1 + pct / 100)) * 10) / 10;
   return [
-    { provider: 'MagicBricks', price: variance(0), logoColor: '#e74c3c', url: '#', delivery: 'Ready to Move' },
-    { provider: 'Housing.com', price: variance(1.5), logoColor: '#00b386', url: '#', delivery: 'Ready to Move' },
-    { provider: '99acres', price: variance(-1.2), logoColor: '#2980b9', url: '#', delivery: 'Ready to Move' },
-    { provider: 'SquareYards', price: variance(2.5), logoColor: '#8e44ad', url: '#', delivery: 'Ready to Move' },
+    { provider: 'MagicBricks', price: variance(0), logoColor: '#e74c3c', logo: '/logos/magicbricks.png', url: '#', delivery: 'Ready to Move' },
+    { provider: 'Housing.com', price: variance(1.5), logoColor: '#ffcc00', logo: '/logos/housing.png', url: '#', delivery: 'Ready to Move' },
+    { provider: '99acres', price: variance(-1.2), logoColor: '#0078db', logo: '/logos/99acres.jpg', url: '#', delivery: 'Ready to Move' },
+    { provider: 'SquareYards', price: variance(2.5), logoColor: '#111111', logo: '/logos/squareyards.png', url: '#', delivery: 'Ready to Move' },
   ];
 };
 

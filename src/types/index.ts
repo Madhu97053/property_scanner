@@ -6,6 +6,7 @@ export interface ProviderOffer {
   provider: string;
   price: number; // in lakhs
   logoColor: string;
+  logo?: string;
   url: string;
   delivery?: string;
 }

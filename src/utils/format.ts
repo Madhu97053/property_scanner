@@ -65,3 +65,19 @@ export function propertyMatchesFilters(property: Property, filters: {
   if (filters.maxArea !== null && filters.maxArea > 0 && property.area > filters.maxArea) return false;
   return true;
 }
+
+export const PROVIDER_LOGOS: Record<string, string> = {
+  'MagicBricks': '/logos/magicbricks.png',
+  'magicbricks': '/logos/magicbricks.png',
+  '99acres': '/logos/99acres.jpg',
+  'Housing.com': '/logos/housing.png',
+  'housing.com': '/logos/housing.png',
+  'SquareYards': '/logos/squareyards.png',
+  'squareyards': '/logos/squareyards.png',
+};
+
+export function getProviderLogo(provider: string): string | undefined {
+  if (PROVIDER_LOGOS[provider]) return PROVIDER_LOGOS[provider];
+  const cleaned = provider.toLowerCase().replace(/[\s.-]/g, '');
+  return PROVIDER_LOGOS[cleaned];
+}

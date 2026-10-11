@@ -9,7 +9,7 @@ import {
   Theater, CloudRain, SunMedium, Flame
 } from 'lucide-react';
 import { getPropertyById, getRelatedProperties } from '@/data/properties';
-import { formatPrice, formatArea, formatPricePerSqft, getListingLabel } from '@/utils/format';
+import { formatPrice, formatArea, formatPricePerSqft, getListingLabel, getProviderLogo } from '@/utils/format';
 import { useSavedProperties, useCompareProperties } from '@/hooks/useStorage';
 import PropertyCard from '@/components/PropertyCard';
 import EmptyState from '@/components/EmptyState';
@@ -278,15 +278,25 @@ export default function PropertyDetails() {
                     }`}
                   >
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <div
-                          className="flex h-7 w-7 items-center justify-center rounded-lg text-xs font-bold text-white shrink-0"
-                          style={{ backgroundColor: offer.logoColor }}
-                        >
-                          {offer.provider.charAt(0)}
-                        </div>
+                      <div className="flex items-center gap-2.5">
+                        {offer.logo || getProviderLogo(offer.provider) ? (
+                          <div className="h-8 w-8 rounded-lg overflow-hidden border border-gray-200/80 bg-white shadow-2xs shrink-0 flex items-center justify-center p-0.5">
+                            <img
+                              src={offer.logo || getProviderLogo(offer.provider)}
+                              alt={offer.provider}
+                              className="h-full w-full object-contain rounded-md"
+                            />
+                          </div>
+                        ) : (
+                          <div
+                            className="flex h-8 w-8 items-center justify-center rounded-lg text-xs font-bold text-white shrink-0"
+                            style={{ backgroundColor: offer.logoColor }}
+                          >
+                            {offer.provider.charAt(0)}
+                          </div>
+                        )}
                         <div>
-                          <p className="text-xs sm:text-sm font-semibold text-gray-700">{offer.provider}</p>
+                          <p className="text-xs sm:text-sm font-semibold text-gray-800">{offer.provider}</p>
                           <p className="text-[11px] text-gray-400">{offer.delivery}</p>
                         </div>
                       </div>
