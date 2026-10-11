@@ -1,15 +1,21 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { Menu, X, Heart, GitCompare, ScanLine, LogIn, Home, Search as SearchIcon } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+import {
+  Menu, X, Heart, GitCompare, ScanLine, LogIn, Home,
+  Search as SearchIcon, LogOut, ChevronDown
+} from 'lucide-react';
 import { useSavedProperties, useCompareProperties } from '@/hooks/useStorage';
+import { useAuth } from '@/context/AuthContext';
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
   const { savedIds } = useSavedProperties();
   const { compareIds } = useCompareProperties();
+  const { user, openLoginModal, logout } = useAuth();
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const isHome = location.pathname === '/';
   const transparent = isHome && !scrolled;
@@ -23,7 +29,19 @@ export default function Navbar() {
 
   useEffect(() => {
     setMobileOpen(false);
+    setUserDropdownOpen(false);
   }, [location.pathname]);
+
+  // Click outside to close user dropdown
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setUserDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   useEffect(() => {
     if (mobileOpen) {
@@ -101,17 +119,69 @@ export default function Navbar() {
                   </span>
                 )}
               </Link>
-              <button
-                onClick={() => navigate('/search')}
-                className={`flex items-center gap-1.5 lg:gap-2 rounded-xl px-3 lg:px-4 py-2 text-xs lg:text-sm font-semibold transition-all ${
-                  isTransparent
-                    ? 'bg-white text-navy-600 hover:bg-white/90 shadow'
-                    : 'bg-blue-600 text-white hover:bg-blue-700'
-                }`}
-              >
-                <LogIn className="h-4 w-4" />
-                Login
-              </button>
+
+              {/* Login or User Profile */}
+              {user ? (
+                <div className="relative" ref={dropdownRef}>
+                  <button
+                    onClick={() => setUserDropdownOpen(!userDropdownOpen)}
+                    className={`flex items-center gap-2 rounded-xl px-3 py-1.5 text-xs lg:text-sm font-semibold transition-all border ${
+                      isTransparent
+                        ? 'border-white/30 bg-white/15 text-white hover:bg-white/25'
+                        : 'border-gray-200 bg-gray-50 text-gray-800 hover:bg-gray-100'
+                    }`}
+                  >
+                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-600 text-white text-xs font-bold uppercase">
+                      {user.name.charAt(0)}
+                    </div>
+                    <span className="max-w-[110px] truncate">{user.name}</span>
+                    <ChevronDown className="h-3.5 w-3.5 text-gray-400" />
+                  </button>
+
+                  {userDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-56 rounded-2xl bg-white shadow-xl border border-gray-100 py-2 z-50 animate-scale-in text-gray-800">
+                      <div className="px-4 py-3 border-b border-gray-100">
+                        <p className="text-xs font-bold text-gray-900 truncate">{user.name}</p>
+                        <p className="text-[11px] text-gray-500 truncate">{user.identifier}</p>
+                      </div>
+                      <Link
+                        to="/saved"
+                        className="flex items-center justify-between px-4 py-2.5 text-xs font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                      >
+                        <span className="flex items-center gap-2"><Heart className="h-3.5 w-3.5 text-red-500" /> Saved Properties</span>
+                        <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-semibold">{savedIds.length}</span>
+                      </Link>
+                      <Link
+                        to="/compare"
+                        className="flex items-center justify-between px-4 py-2.5 text-xs font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                      >
+                        <span className="flex items-center gap-2"><GitCompare className="h-3.5 w-3.5 text-blue-600" /> Compared Properties</span>
+                        <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-semibold">{compareIds.length}</span>
+                      </Link>
+                      <div className="border-t border-gray-100 mt-1 pt-1">
+                        <button
+                          onClick={() => { logout(); setUserDropdownOpen(false); }}
+                          className="w-full flex items-center gap-2 px-4 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 transition-colors"
+                        >
+                          <LogOut className="h-3.5 w-3.5" /> Sign Out
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <button
+                  onClick={openLoginModal}
+                  className={`flex items-center gap-1.5 lg:gap-2 rounded-xl px-3.5 lg:px-4 py-2 text-xs lg:text-sm font-semibold transition-all shadow-sm ${
+                    isTransparent
+                      ? 'bg-white text-navy-600 hover:bg-white/90 shadow'
+                      : 'bg-blue-600 text-white hover:bg-blue-700 shadow-blue-600/20'
+                  }`}
+                >
+                  <LogIn className="h-4 w-4" />
+                  Login
+                </button>
+              )}
             </div>
 
             {/* Mobile quick actions & hamburger */}
@@ -155,6 +225,28 @@ export default function Navbar() {
           {/* Drawer content attached directly below 64px header */}
           <div className="fixed top-16 left-0 right-0 bg-white border-t border-gray-100 shadow-2xl z-50 animate-fade-in max-h-[calc(100vh-4rem)] overflow-y-auto">
             <div className="px-4 py-5 space-y-2">
+              {/* User profile card in mobile drawer if logged in */}
+              {user && (
+                <div className="flex items-center justify-between p-3.5 bg-blue-50/70 border border-blue-100 rounded-2xl mb-3">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 text-white font-bold text-sm uppercase">
+                      {user.name.charAt(0)}
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-gray-900">{user.name}</p>
+                      <p className="text-xs text-gray-500">{user.identifier}</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => { logout(); setMobileOpen(false); }}
+                    className="p-2 rounded-lg text-gray-400 hover:text-red-500 hover:bg-white"
+                    aria-label="Sign out"
+                  >
+                    <LogOut className="h-4 w-4" />
+                  </button>
+                </div>
+              )}
+
               {navLinks.map((link) => {
                 const Icon = link.icon;
                 const active = location.pathname === link.path;
@@ -188,14 +280,25 @@ export default function Navbar() {
               })}
 
               <div className="pt-4 mt-2 border-t border-gray-100">
-                <button
-                  type="button"
-                  onClick={() => { navigate('/search'); setMobileOpen(false); }}
-                  className="w-full flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3.5 text-base font-semibold text-white shadow-md shadow-blue-600/30 active:scale-[0.98]"
-                >
-                  <LogIn className="h-5 w-5" />
-                  Login to Account
-                </button>
+                {user ? (
+                  <button
+                    type="button"
+                    onClick={() => { logout(); setMobileOpen(false); }}
+                    className="w-full flex items-center justify-center gap-2 rounded-xl bg-gray-100 hover:bg-red-50 hover:text-red-600 px-4 py-3.5 text-sm font-semibold text-gray-700 transition-colors"
+                  >
+                    <LogOut className="h-4 w-4" />
+                    Sign Out ({user.name})
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => { openLoginModal(); setMobileOpen(false); }}
+                    className="w-full flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3.5 text-base font-semibold text-white shadow-md shadow-blue-600/30 active:scale-[0.98]"
+                  >
+                    <LogIn className="h-5 w-5" />
+                    Login / Sign In
+                  </button>
+                )}
               </div>
             </div>
           </div>

@@ -9,6 +9,7 @@ export default function Footer() {
         { label: 'Search Properties', path: '/search' },
         { label: 'Compare', path: '/compare' },
         { label: 'Saved Properties', path: '/saved' },
+        { label: 'Sign In / Account', path: '/login' },
       ],
     },
     {
