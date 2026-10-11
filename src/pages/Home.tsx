@@ -6,7 +6,6 @@ import {
 } from 'lucide-react';
 import SearchForm from '@/components/SearchForm';
 import PropertyCard from '@/components/PropertyCard';
-import DemoBadge from '@/components/DemoBadge';
 import { getFeaturedProperties } from '@/data/properties';
 import { CITIES, PROPERTY_TYPES } from '@/types';
 
@@ -72,9 +71,6 @@ export default function Home() {
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Left: Headline */}
             <div className="text-white animate-fade-in-up">
-              <div className="mb-3 sm:mb-4">
-                <DemoBadge className="bg-white/15 text-white/90 border-white/20" />
-              </div>
               <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.15] text-balance">
                 Discover Your Perfect
                 <span className="block text-teal-300">Property, Confidently.</span>

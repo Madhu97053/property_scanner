@@ -93,7 +93,7 @@ export default function Footer() {
               <span className="flex items-center gap-1.5"><MapPin className="h-4 w-4" /> Hyderabad, India</span>
             </div>
             <p className="text-xs text-white/40">
-              © 2026 Property Scanner. Demo preview — data is fictional.
+              © 2026 Property Scanner. All rights reserved.
             </p>
           </div>
         </div>

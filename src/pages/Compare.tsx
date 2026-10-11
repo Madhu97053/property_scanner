@@ -4,7 +4,6 @@ import { properties } from '@/data/properties';
 import { formatPrice, formatArea, formatPricePerSqft, getListingLabel } from '@/utils/format';
 import { useCompareProperties } from '@/hooks/useStorage';
 import EmptyState from '@/components/EmptyState';
-import DemoBadge from '@/components/DemoBadge';
 
 export default function Compare() {
   const { compareIds, removeFromCompare, clearCompare } = useCompareProperties();
@@ -85,8 +84,7 @@ export default function Compare() {
             <p className="text-xs sm:text-sm text-gray-500">Comparing {compareProps.length} of 5 properties</p>
           </div>
         </div>
-        <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start">
-          <DemoBadge className="hidden xs:inline-flex" />
+        <div className="flex items-center gap-2 w-full sm:w-auto justify-end sm:justify-start">
           <div className="flex items-center gap-2">
             <button
               onClick={clearCompare}

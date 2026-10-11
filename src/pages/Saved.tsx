@@ -4,7 +4,6 @@ import { properties } from '@/data/properties';
 import { useSavedProperties } from '@/hooks/useStorage';
 import PropertyCard from '@/components/PropertyCard';
 import EmptyState from '@/components/EmptyState';
-import DemoBadge from '@/components/DemoBadge';
 
 export default function Saved() {
   const { savedIds, removeSaved } = useSavedProperties();
@@ -30,7 +29,6 @@ export default function Saved() {
             </p>
           </div>
         </div>
-        <DemoBadge className="hidden xs:inline-flex" />
       </div>
 
       {savedProps.length === 0 ? (

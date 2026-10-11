@@ -7,7 +7,6 @@ import PropertyCard from '@/components/PropertyCard';
 import SearchForm from '@/components/SearchForm';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import EmptyState from '@/components/EmptyState';
-import DemoBadge from '@/components/DemoBadge';
 import { properties } from '@/data/properties';
 import { propertyMatchesFilters } from '@/utils/format';
 import { CITIES, PROPERTY_TYPES, BHK_OPTIONS } from '@/types';
@@ -284,7 +283,6 @@ export default function Search() {
             <h1 className="font-display text-lg sm:text-2xl font-bold text-navy-600">
               {loading ? 'Searching...' : `${filtered.length} Properties`}
             </h1>
-            <DemoBadge className="hidden xs:inline-flex" />
           </div>
 
           <div className="flex items-center gap-2">

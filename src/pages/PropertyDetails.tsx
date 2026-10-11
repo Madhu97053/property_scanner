@@ -10,7 +10,6 @@ import { formatPrice, formatArea, formatPricePerSqft, getListingLabel } from '@/
 import { useSavedProperties, useCompareProperties } from '@/hooks/useStorage';
 import PropertyCard from '@/components/PropertyCard';
 import EmptyState from '@/components/EmptyState';
-import DemoBadge from '@/components/DemoBadge';
 
 const amenityIcons: Record<string, typeof Home> = {
   'Swimming Pool': Home,
@@ -79,7 +78,6 @@ export default function PropertyDetails() {
             <ArrowLeft className="h-4 w-4" /> <span>Back</span>
           </button>
           <div className="flex items-center gap-1.5 sm:gap-2">
-            <DemoBadge className="hidden md:inline-flex" />
             <button
               onClick={() => { /* demo share */ }}
               className="flex items-center gap-1.5 rounded-lg border border-gray-200 px-2.5 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors shadow-xs"
@@ -252,7 +250,6 @@ export default function PropertyDetails() {
             <div className="rounded-2xl bg-white p-4 sm:p-5 border border-gray-100 shadow-sm lg:sticky lg:top-32">
               <div className="flex items-center justify-between mb-3 sm:mb-4">
                 <h2 className="font-display text-base font-bold text-navy-600">Provider Offers</h2>
-                <DemoBadge />
               </div>
 
               <p className="text-xs text-gray-400 mb-3">
