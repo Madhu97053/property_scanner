@@ -33,10 +33,10 @@
 
 @layer components {
   .glass-nav {
-    background: rgba(10, 31, 61, 0.35);
+    background: rgba(10, 31, 61, 0.88);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   }
 
   .glass-card {

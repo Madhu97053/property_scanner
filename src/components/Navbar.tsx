@@ -11,22 +11,14 @@ import ScannerLogo from '@/components/ScannerLogo';
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const { savedIds } = useSavedProperties();
   const { compareIds } = useCompareProperties();
   const { user, openLoginModal, logout } = useAuth();
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const isHome = location.pathname === '/';
-  const transparent = isHome && !scrolled;
-  const isTransparent = transparent && !mobileOpen;
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  // Keep navbar in the signature top-of-screen style throughout the entire page without changing on scroll
+  const isTransparent = true;
 
   useEffect(() => {
     setMobileOpen(false);
@@ -72,7 +64,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isTransparent ? 'glass-nav' : 'bg-white shadow-sm'}`}>
+      <header className="fixed top-0 left-0 right-0 z-50 glass-nav shadow-sm">
         <nav className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}

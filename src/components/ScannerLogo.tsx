@@ -36,32 +36,62 @@ const PROPERTY_SLIDES = [
   },
 ];
 
+// Preload all 4 images on script evaluation for instant rendering
+if (typeof window !== 'undefined') {
+  PROPERTY_SLIDES.forEach((slide) => {
+    const img = new Image();
+    img.src = slide.image;
+  });
+}
+
+// ============================================================
+// GLOBAL SYNCHRONIZER: Keeps Navbar and Footer logos 100% in sync
+// ============================================================
+let globalCurrentIndex = 0;
+let globalCycleKey = 0;
+const subscribers = new Set<() => void>();
+let globalTimer: ReturnType<typeof setInterval> | null = null;
+
+function startGlobalTimer() {
+  if (globalTimer) return;
+  globalTimer = setInterval(() => {
+    globalCurrentIndex = (globalCurrentIndex + 1) % PROPERTY_SLIDES.length;
+    globalCycleKey += 1;
+    subscribers.forEach((callback) => callback());
+  }, 2700);
+}
+
+function useScannerSync() {
+  const [, setTick] = useState(0);
+
+  useEffect(() => {
+    const handleUpdate = () => setTick((t) => t + 1);
+    subscribers.add(handleUpdate);
+    startGlobalTimer();
+
+    return () => {
+      subscribers.delete(handleUpdate);
+      if (subscribers.size === 0 && globalTimer) {
+        clearInterval(globalTimer);
+        globalTimer = null;
+      }
+    };
+  }, []);
+
+  return {
+    currentIndex: globalCurrentIndex,
+    cycleKey: globalCycleKey,
+  };
+}
+
 export default function ScannerLogo({
   size = 'md',
   isTransparent = false,
   className = '',
   showLabel = true,
 }: ScannerLogoProps) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [cycleKey, setCycleKey] = useState(0);
-
-  // Preload all 4 images on initial mount to guarantee instant zero-lag rendering
-  useEffect(() => {
-    PROPERTY_SLIDES.forEach((slide) => {
-      const img = new Image();
-      img.src = slide.image;
-    });
-  }, []);
-
-  // Slide cycle timer: scans from top to bottom every 2.7 seconds
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % PROPERTY_SLIDES.length);
-      setCycleKey((prev) => prev + 1);
-    }, 2700);
-
-    return () => clearInterval(timer);
-  }, []);
+  // Synchronized state shared across Navbar and Footer instances
+  const { currentIndex, cycleKey } = useScannerSync();
 
   const prevIndex = (currentIndex - 1 + PROPERTY_SLIDES.length) % PROPERTY_SLIDES.length;
   const currentSlide = PROPERTY_SLIDES[currentIndex];
